@@ -22,16 +22,20 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *}
-{extends file='page.tpl'}
+{foreach $javascript.external as $js}
+  <script type="text/javascript" src="{$js.uri}" {$js.attribute}></script>
+{/foreach}
 
-{block name='page_content_container'}
-    <section id="content" class="page-home">
-        {block name='page_content_top'}{/block}
+{foreach $javascript.inline as $js}
+  <script type="text/javascript">
+    {$js.content nofilter}
+  </script>
+{/foreach}
 
-        {block name='page_content'}
-            {block name='hook_home'}
-                {$HOOK_HOME nofilter}
-            {/block}
-        {/block}
-    </section>
-{/block}
+{if isset($vars) && $vars|@count}
+  <script type="text/javascript">
+    {foreach from=$vars key=var_name item=var_value}
+    var {$var_name} = {$var_value|json_encode nofilter};
+    {/foreach}
+  </script>
+{/if}

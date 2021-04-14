@@ -22,16 +22,12 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  *}
-{extends file='page.tpl'}
+{foreach $stylesheets.external as $stylesheet}
+    <link rel="stylesheet" href="{$stylesheet.uri}" type="text/css" media="{$stylesheet.media}">
+{/foreach}
 
-{block name='page_content_container'}
-    <section id="content" class="page-home">
-        {block name='page_content_top'}{/block}
-
-        {block name='page_content'}
-            {block name='hook_home'}
-                {$HOOK_HOME nofilter}
-            {/block}
-        {/block}
-    </section>
-{/block}
+{foreach $stylesheets.inline as $stylesheet}
+    <style>
+        {$stylesheet.content}
+    </style>
+{/foreach}
